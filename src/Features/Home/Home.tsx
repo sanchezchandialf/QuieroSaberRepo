@@ -1,5 +1,6 @@
 import { Box, Button, Card, Grid, Typography } from '@mui/material'
 import react from 'react'
+import Argentina from '../Argentina/Argentina'
 
 const Home = () => {
     return (
@@ -24,6 +25,7 @@ const Home = () => {
                     Toda la información que necesitas en un solo lugar, de forma simple y accesible.
                 </p>
                 <Typography component={"h2"} variant='h2' color="primary" fontWeight="bold" textAlign={"center"} paddingTop={"20px"}>Feriados Proximos</Typography>
+                <Argentina />
             </Box>
           
         </Box>
