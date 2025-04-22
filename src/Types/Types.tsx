@@ -5,10 +5,11 @@ export default interface Feriados {
     nombre:string;
 }
 export interface Dolares{
-    moneda:string;
-    casa:string;
-    fecha:string;
     compra:number; 
     venta:number;
-    
+    casa:string;
+    nombre:string;
+    moneda:string;
+    fechaActualizacion:string;
+   
 }

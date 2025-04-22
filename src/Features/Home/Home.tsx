@@ -10,11 +10,8 @@ const Home = () => {
                     display: 'flex',
                     padding: 3,
                     gap: 3,
-
                 }}
             >
-
-
                 <Argentina />
             </Box>
 
