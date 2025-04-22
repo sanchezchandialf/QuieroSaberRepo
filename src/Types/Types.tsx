@@ -4,3 +4,11 @@ export default interface Feriados {
     tipo:string;
     nombre:string;
 }
+export interface Dolares{
+    moneda:string;
+    casa:string;
+    fecha:string;
+    compra:number; 
+    venta:number;
+    
+}
