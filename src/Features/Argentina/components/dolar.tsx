@@ -3,7 +3,7 @@ import { Dolares } from "../../../Types/Types"
 import { useEffect, useState } from "react"
 
 const Dolar = () => {
-    const [loading, setLoading] = useState<boolean>(true)
+    const [loading, setLoading] = useState(true)
     const [error, setError] = useState<string | null>(null)
     const [dolarData, setDolarData] = useState<{
         oficial: Dolares[]
@@ -54,45 +54,45 @@ const Dolar = () => {
             minute: '2-digit',
         })
 
-    const renderCards = (data: Dolares[]) => (
-        data.map((dolar, index) => (
-            <Card key={index} sx={{ padding: 2, marginBottom: 2, display: 'flex', flexDirection: 'column', gap: 1 }}>
-                <Typography variant="h6" sx={{ fontWeight: 'bold', marginBottom: 2 }}>{dolar.casa}</Typography>
-                <Typography variant="body1">Compra: {dolar.compra}</Typography>
-                <Typography variant="body1">Venta: {dolar.venta}</Typography>
-                <Typography variant="body1">Fecha Actualización: {formatearFecha(dolar.fechaActualizacion)}</Typography>
-            </Card>
-        ))
+    const renderCards = (title: string, data: Dolares[]) => (
+        <Box sx={{ flex: 1, minWidth: 280 }}>
+            <Typography variant="h6" align="center" sx={{ fontWeight: 'bold', marginBottom: 2 }}>{title}</Typography>
+            {data.map((dolar, index) => (
+                <Card key={index} sx={{ padding: 2, marginBottom: 2, borderRadius: 2, boxShadow: 2 }}>
+                    <Typography variant="subtitle1" sx={{ fontWeight: 'bold' }}>{dolar.casa}</Typography>
+                    <Typography variant="body2">Compra: {dolar.compra}</Typography>
+                    <Typography variant="body2">Venta: {dolar.venta}</Typography>
+                    <Typography variant="caption" color="text.secondary">Actualizado: {formatearFecha(dolar.fechaActualizacion)}</Typography>
+                </Card>
+            ))}
+        </Box>
     )
 
     return (
-        <Box>
-            <Box sx={{ display: 'flex' }}>
-                <Card sx={{ padding: 2, width: '100%' }}>
-                    <Typography variant="h6" sx={{ fontWeight: 'bold', marginBottom: 2 }}>Dólar Hoy</Typography>
-                </Card>
-            </Box>
+        <Box sx={{ padding: 3 }}>
+            <Typography variant="h4" align="center" sx={{ fontWeight: 'bold', marginBottom: 4 }}>
+                Cotización del Dólar 💵
+            </Typography>
 
             {loading ? (
-                <Box sx={{ display: 'flex', gap: 2 }}>
+                <Box sx={{ display: 'flex', justifyContent: 'center', gap: 3, flexWrap: 'wrap' }}>
                     {[1, 2, 3].map(index => (
                         <Skeleton key={index} variant="rectangular" width={300} height={160} />
                     ))}
                 </Box>
             ) : error ? (
-                <Typography color="error">{error}</Typography>
+                <Typography color="error" align="center">{error}</Typography>
             ) : (
-                <>
-                    <Box sx={{ flexGrow: 1, overflowY: 'auto' }}>
-                        {renderCards(dolarData.oficial)}
-                    </Box>
-                    <Box sx={{ flexGrow: 1, overflowY: 'auto' }}>
-                        {renderCards(dolarData.blue)}
-                    </Box>
-                    <Box sx={{ flexGrow: 1, overflowY: 'auto' }}>
-                        {renderCards(dolarData.cripto)}
-                    </Box>
-                </>
+                <Box sx={{
+                    display: 'flex',
+                    flexDirection: { xs: 'column', md: 'row' },
+                    gap: 3,
+                    justifyContent: 'space-between'
+                }}>
+                    {renderCards('Dólar Oficial', dolarData.oficial)}
+                    {renderCards('Dólar Blue', dolarData.blue)}
+                    {renderCards('Dólar Cripto', dolarData.cripto)}
+                </Box>
             )}
         </Box>
     )

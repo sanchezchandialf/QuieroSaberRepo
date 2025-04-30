@@ -1,4 +1,3 @@
-// components/FeriadosWidget.tsx
 import { useEffect, useState } from 'react';
 import {
   Box,
@@ -12,7 +11,7 @@ import {
 import Feriados from '../../Types/Types';
 
 export default function FeriadosWidget() {
-  const [loading, setLoading] = useState<boolean>(true);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [feriados, setFeriados] = useState<Array<Feriados>>([]);
 
@@ -38,77 +37,65 @@ export default function FeriadosWidget() {
     .slice(0, 3);
 
   return (
-    <Card
+    <Box
       sx={{
         width: '100%',
         maxWidth: 420,
-        height: '100%',
+        margin: '0 auto',
+        padding: 2,
         display: 'flex',
         flexDirection: 'column',
-        padding: 2,
-        boxShadow: 3,
-        borderRadius: 2,
-        backgroundColor: '#ffffff',
       }}
     >
-      <Typography variant="h6" sx={{ fontWeight: 'bold', marginBottom: 2 }}>
-        Próximos Feriados
+      <Typography variant="h5" align="center" sx={{ fontWeight: 'bold', marginBottom: 3 }}>
+        Próximos Feriados 🇦🇷
       </Typography>
 
-      {loading ? (
-        <Box sx={{ display: 'flex', gap: 2 }}>
-          {[1, 2, 3].map(index => (
-            <Skeleton key={index} variant="rectangular" width={300} height={160} />
-          ))}
-        </Box>
-      ) : error ? (
-        <Typography color="error">{error}</Typography>
-      ) : (
-        <Box sx={{ flexGrow: 1, overflowY: 'auto' }}>
-          {feriadosProximos.map((feriado, index) => (
-            <Card
-              key={index}
-              sx={{
-                marginBottom: 2,
-                boxShadow: 1,
-                borderRadius: 2,
-                backgroundColor: '#fdfdfd',
-              }}
-            >
-              <CardContent>
-                <Typography variant="subtitle1" sx={{ fontWeight: 600 }}>
-                  {feriado.nombre}
-                </Typography>
-                <Typography
-                  variant="body2"
-                  sx={{ color: 'text.secondary', marginTop: 0.5 }}
-                >
-                  📅 {feriado.fecha}
-                </Typography>
-                <Typography
-                  variant="body2"
-                  sx={{ marginTop: 1, fontStyle: 'italic', color: 'text.secondary' }}
-                >
-                  {feriado.tipo}
-                </Typography>
-              </CardContent>
-              <CardActions>
-                <Button
-                  size="small"
-                  variant="outlined"
-                  sx={{
-                    marginLeft: 1,
-                    textTransform: 'none',
-                    borderRadius: 2,
-                  }}
-                >
-                  Saber más
-                </Button>
-              </CardActions>
-            </Card>
-          ))}
-        </Box>
-      )}
-    </Card>
+      <Card
+        sx={{
+          padding: 2,
+          boxShadow: 3,
+          borderRadius: 3,
+          backgroundColor: '#fff',
+        }}
+      >
+        {loading ? (
+          <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+            {[1, 2, 3].map(index => (
+              <Skeleton key={index} variant="rounded" height={100} />
+            ))}
+          </Box>
+        ) : error ? (
+          <Typography color="error" align="center">{error}</Typography>
+        ) : (
+          <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+            {feriadosProximos.map((feriado, index) => (
+              <Card
+                key={index}
+                variant="outlined"
+                sx={{
+                  borderRadius: 2,
+                  backgroundColor: '#f9f9f9',
+                  boxShadow: 1,
+                }}
+              >
+                <CardContent>
+                  <Typography variant="subtitle1" sx={{ fontWeight: 600 }}>
+                    {feriado.nombre}
+                  </Typography>
+                  <Typography variant="body2" sx={{ color: 'text.secondary', marginTop: 0.5 }}>
+                    📅 {feriado.fecha}
+                  </Typography>
+                  <Typography variant="body2" sx={{ fontStyle: 'italic', color: 'text.secondary', marginTop: 1 }}>
+                    {feriado.tipo}
+                  </Typography>
+                </CardContent>
+               
+              </Card>
+            ))}
+          </Box>
+        )}
+      </Card>
+    </Box>
   );
 }
